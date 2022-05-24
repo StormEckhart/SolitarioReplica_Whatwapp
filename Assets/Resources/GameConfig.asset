@@ -1,0 +1,202 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2891be1de86340478b43c719bb1c9d5, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: 
+  Cards:
+    CardVisuals:
+    - ValueSprite: {fileID: 21300000, guid: 4865cca08b1ccc943aea52426b97f68a, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 074a0f384dfd3a54ba61e87267ebbdb1, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 21cfc5d1caa9dec44b56e6a3ce46d14c, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 074a0f384dfd3a54ba61e87267ebbdb1, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 2deb8f266a182884bba8b0a519ee6fee, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 074a0f384dfd3a54ba61e87267ebbdb1, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 89bc63e986a1fe545ab486026aed6826, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 074a0f384dfd3a54ba61e87267ebbdb1, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 391d58698e0cedc46b70ce9faad44e39, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 074a0f384dfd3a54ba61e87267ebbdb1, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 03adcd83276f8b74b9901ca62729fd65, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 074a0f384dfd3a54ba61e87267ebbdb1, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 18d6ae7aa2a8ac147a105c9d311981ce, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 074a0f384dfd3a54ba61e87267ebbdb1, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: f525af0e5d6db08478c10bfa5353c9fb, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 074a0f384dfd3a54ba61e87267ebbdb1, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 0c1949ec87622814f86c95d0ed8819e2, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 074a0f384dfd3a54ba61e87267ebbdb1, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 74313c97f53166347a83d8f7568c817a, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 074a0f384dfd3a54ba61e87267ebbdb1, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 110b4bfcdbd700041964bd9e77b1a983, type: 3}
+      FigureSprite: {fileID: 21300000, guid: 4e9daa46f4d2a4f42a409735c68905b5, type: 3}
+      SuitSprite: {fileID: 21300000, guid: 074a0f384dfd3a54ba61e87267ebbdb1, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: c5f9119576d02a646b4b8ace36ff34b1, type: 3}
+      FigureSprite: {fileID: 21300000, guid: 2806023fa509c4e439c381f2d4fc081a, type: 3}
+      SuitSprite: {fileID: 21300000, guid: 074a0f384dfd3a54ba61e87267ebbdb1, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: d9eb632644a350344b25f5d48a5523ea, type: 3}
+      FigureSprite: {fileID: 21300000, guid: 773ae39f765cfa84e90e72a9b5d93edb, type: 3}
+      SuitSprite: {fileID: 21300000, guid: 074a0f384dfd3a54ba61e87267ebbdb1, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 4865cca08b1ccc943aea52426b97f68a, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1bfaee0315c87784180850cc68734731, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 21cfc5d1caa9dec44b56e6a3ce46d14c, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1bfaee0315c87784180850cc68734731, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 2deb8f266a182884bba8b0a519ee6fee, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1bfaee0315c87784180850cc68734731, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 89bc63e986a1fe545ab486026aed6826, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1bfaee0315c87784180850cc68734731, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 391d58698e0cedc46b70ce9faad44e39, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1bfaee0315c87784180850cc68734731, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 03adcd83276f8b74b9901ca62729fd65, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1bfaee0315c87784180850cc68734731, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 18d6ae7aa2a8ac147a105c9d311981ce, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1bfaee0315c87784180850cc68734731, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: f525af0e5d6db08478c10bfa5353c9fb, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1bfaee0315c87784180850cc68734731, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 0c1949ec87622814f86c95d0ed8819e2, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1bfaee0315c87784180850cc68734731, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 74313c97f53166347a83d8f7568c817a, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1bfaee0315c87784180850cc68734731, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 110b4bfcdbd700041964bd9e77b1a983, type: 3}
+      FigureSprite: {fileID: 21300000, guid: a81c2f7b1f0a9f742b0644a5397437f4, type: 3}
+      SuitSprite: {fileID: 21300000, guid: 1bfaee0315c87784180850cc68734731, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: c5f9119576d02a646b4b8ace36ff34b1, type: 3}
+      FigureSprite: {fileID: 21300000, guid: 0be05934592fc674394b651695fb2d6b, type: 3}
+      SuitSprite: {fileID: 21300000, guid: 1bfaee0315c87784180850cc68734731, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: d9eb632644a350344b25f5d48a5523ea, type: 3}
+      FigureSprite: {fileID: 21300000, guid: 4ef7c85409408774cb64345d9070597c, type: 3}
+      SuitSprite: {fileID: 21300000, guid: 1bfaee0315c87784180850cc68734731, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 4865cca08b1ccc943aea52426b97f68a, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 54e4befa027521c4c89a539ac564e4ab, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 21cfc5d1caa9dec44b56e6a3ce46d14c, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 54e4befa027521c4c89a539ac564e4ab, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 2deb8f266a182884bba8b0a519ee6fee, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 54e4befa027521c4c89a539ac564e4ab, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 89bc63e986a1fe545ab486026aed6826, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 54e4befa027521c4c89a539ac564e4ab, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 391d58698e0cedc46b70ce9faad44e39, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 54e4befa027521c4c89a539ac564e4ab, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 03adcd83276f8b74b9901ca62729fd65, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 54e4befa027521c4c89a539ac564e4ab, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 18d6ae7aa2a8ac147a105c9d311981ce, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 54e4befa027521c4c89a539ac564e4ab, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: f525af0e5d6db08478c10bfa5353c9fb, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 54e4befa027521c4c89a539ac564e4ab, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 0c1949ec87622814f86c95d0ed8819e2, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 54e4befa027521c4c89a539ac564e4ab, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 74313c97f53166347a83d8f7568c817a, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 54e4befa027521c4c89a539ac564e4ab, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 110b4bfcdbd700041964bd9e77b1a983, type: 3}
+      FigureSprite: {fileID: 21300000, guid: 4e9daa46f4d2a4f42a409735c68905b5, type: 3}
+      SuitSprite: {fileID: 21300000, guid: 54e4befa027521c4c89a539ac564e4ab, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: c5f9119576d02a646b4b8ace36ff34b1, type: 3}
+      FigureSprite: {fileID: 21300000, guid: 2806023fa509c4e439c381f2d4fc081a, type: 3}
+      SuitSprite: {fileID: 21300000, guid: 54e4befa027521c4c89a539ac564e4ab, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: d9eb632644a350344b25f5d48a5523ea, type: 3}
+      FigureSprite: {fileID: 21300000, guid: 773ae39f765cfa84e90e72a9b5d93edb, type: 3}
+      SuitSprite: {fileID: 21300000, guid: 54e4befa027521c4c89a539ac564e4ab, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 4865cca08b1ccc943aea52426b97f68a, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1d2f2101532c7e241a01143ad1332289, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 21cfc5d1caa9dec44b56e6a3ce46d14c, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1d2f2101532c7e241a01143ad1332289, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 2deb8f266a182884bba8b0a519ee6fee, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1d2f2101532c7e241a01143ad1332289, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 89bc63e986a1fe545ab486026aed6826, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1d2f2101532c7e241a01143ad1332289, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 391d58698e0cedc46b70ce9faad44e39, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1d2f2101532c7e241a01143ad1332289, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 03adcd83276f8b74b9901ca62729fd65, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1d2f2101532c7e241a01143ad1332289, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 18d6ae7aa2a8ac147a105c9d311981ce, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1d2f2101532c7e241a01143ad1332289, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: f525af0e5d6db08478c10bfa5353c9fb, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1d2f2101532c7e241a01143ad1332289, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 0c1949ec87622814f86c95d0ed8819e2, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1d2f2101532c7e241a01143ad1332289, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 74313c97f53166347a83d8f7568c817a, type: 3}
+      FigureSprite: {fileID: 0}
+      SuitSprite: {fileID: 21300000, guid: 1d2f2101532c7e241a01143ad1332289, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: 110b4bfcdbd700041964bd9e77b1a983, type: 3}
+      FigureSprite: {fileID: 21300000, guid: a81c2f7b1f0a9f742b0644a5397437f4, type: 3}
+      SuitSprite: {fileID: 21300000, guid: 1d2f2101532c7e241a01143ad1332289, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: c5f9119576d02a646b4b8ace36ff34b1, type: 3}
+      FigureSprite: {fileID: 21300000, guid: 0be05934592fc674394b651695fb2d6b, type: 3}
+      SuitSprite: {fileID: 21300000, guid: 1d2f2101532c7e241a01143ad1332289, type: 3}
+    - ValueSprite: {fileID: 21300000, guid: d9eb632644a350344b25f5d48a5523ea, type: 3}
+      FigureSprite: {fileID: 21300000, guid: 4ef7c85409408774cb64345d9070597c, type: 3}
+      SuitSprite: {fileID: 21300000, guid: 1d2f2101532c7e241a01143ad1332289, type: 3}
+    m_ValueVisuals:
+    - {fileID: 21300000, guid: 4865cca08b1ccc943aea52426b97f68a, type: 3}
+    - {fileID: 21300000, guid: 21cfc5d1caa9dec44b56e6a3ce46d14c, type: 3}
+    - {fileID: 21300000, guid: 2deb8f266a182884bba8b0a519ee6fee, type: 3}
+    - {fileID: 21300000, guid: 89bc63e986a1fe545ab486026aed6826, type: 3}
+    - {fileID: 21300000, guid: 391d58698e0cedc46b70ce9faad44e39, type: 3}
+    - {fileID: 21300000, guid: 03adcd83276f8b74b9901ca62729fd65, type: 3}
+    - {fileID: 21300000, guid: 18d6ae7aa2a8ac147a105c9d311981ce, type: 3}
+    - {fileID: 21300000, guid: f525af0e5d6db08478c10bfa5353c9fb, type: 3}
+    - {fileID: 21300000, guid: 0c1949ec87622814f86c95d0ed8819e2, type: 3}
+    - {fileID: 21300000, guid: 74313c97f53166347a83d8f7568c817a, type: 3}
+    - {fileID: 21300000, guid: 110b4bfcdbd700041964bd9e77b1a983, type: 3}
+    - {fileID: 21300000, guid: c5f9119576d02a646b4b8ace36ff34b1, type: 3}
+    - {fileID: 21300000, guid: d9eb632644a350344b25f5d48a5523ea, type: 3}
+    m_BlackFigureVisuals:
+    - {fileID: 21300000, guid: a81c2f7b1f0a9f742b0644a5397437f4, type: 3}
+    - {fileID: 21300000, guid: 0be05934592fc674394b651695fb2d6b, type: 3}
+    - {fileID: 21300000, guid: 4ef7c85409408774cb64345d9070597c, type: 3}
+    m_RedFigureVisuals:
+    - {fileID: 21300000, guid: 4e9daa46f4d2a4f42a409735c68905b5, type: 3}
+    - {fileID: 21300000, guid: 2806023fa509c4e439c381f2d4fc081a, type: 3}
+    - {fileID: 21300000, guid: 773ae39f765cfa84e90e72a9b5d93edb, type: 3}
+    m_SuitVisuals:
+    - {fileID: 21300000, guid: 074a0f384dfd3a54ba61e87267ebbdb1, type: 3}
+    - {fileID: 21300000, guid: 1bfaee0315c87784180850cc68734731, type: 3}
+    - {fileID: 21300000, guid: 54e4befa027521c4c89a539ac564e4ab, type: 3}
+    - {fileID: 21300000, guid: 1d2f2101532c7e241a01143ad1332289, type: 3}
+    RedSuitValueColor: {r: 1, g: 0.23921569, b: 0.2784314, a: 1}
+    BlackSuitValueColor: {r: 0.105882354, g: 0.105882354, b: 0.105882354, a: 1}
+    FlipOverDuration: 0.5
