@@ -363,7 +363,10 @@ public class CardRefs : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
         Debug.LogError("No collision");
 
-        BoardManager.Instance.SwitchPile(m_PileCardIsOn, this, e_CardFaceOptions.FaceShown, false);
+        for (int a = 0; a < m_InteractedCards.Count; a++)
+        {
+            BoardManager.Instance.SwitchPile(m_PileCardIsOn, m_InteractedCards[a], e_CardFaceOptions.FaceShown, false);
+        }
     }
 
     #endregion
@@ -389,8 +392,6 @@ public class CardRefs : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
 
         m_InteractedCards.Clear();
-
-        m_InteractedCards.Add(this);
 
         for (int i = 0; i < m_PileCardIsOn.CardsOnPile.Count - m_PileCardIsOn.CardsOnPile.IndexOf(this); i++)
         {
