@@ -199,6 +199,11 @@ public class GameplayVariables
 
     [Tooltip("The game variant type that is currently being played")]
     public e_DrawAmounts DrawAmount = e_DrawAmounts.Single;
+
+    [Space]
+
+    [Tooltip("The amount of points the player gains each time he adds a card to a suit pile")]
+    public int OnSuitPileCardAddedScoreAmount = 25;
 }
 
 [Serializable]

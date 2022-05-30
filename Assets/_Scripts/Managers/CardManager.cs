@@ -211,6 +211,8 @@ public class CardManager : SingletonMonoBehaviourManager<CardManager>
         {
             BoardManager.Instance.SwitchPile(BoardManager.Instance.FlippedPile, BoardManager.Instance.DeckPile.CardsOnPile[BoardManager.Instance.DeckPile.CardsOnPile.Count - 1], e_CardFaceOptions.FaceShown, false);
         }
+
+        UIManager.Instance.UpdateInGameMovesText(1);
     }
 
     #endregion

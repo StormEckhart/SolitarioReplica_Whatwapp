@@ -58,6 +58,7 @@ public class CardRefs : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     [Tooltip("A reference to the card's override Canvas component")]
     [SerializeField]
     private Canvas m_OverrideCanvas;
+    public Canvas OverrideCanvas => m_OverrideCanvas;
 
     [Space]
 
@@ -275,7 +276,10 @@ public class CardRefs : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     private IEnumerator FollowInputCoroutine()
     {
         //Set the sorting order higher than all other cards
-        m_OverrideCanvas.sortingOrder = 200;
+        for (int i = 0; i < m_InteractedCards.Count; i++)
+        {
+            m_InteractedCards[i].OverrideCanvas.sortingOrder = 200 * i;
+        }
 
 
         //int l = 0;
@@ -324,6 +328,9 @@ public class CardRefs : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                         BoardManager.Instance.SwitchPile(CardManager.Instance.CardsShowing[i].PileCardIsOn, m_InteractedCards[a], e_CardFaceOptions.FaceShown, false);
                     }
 
+                    UIManager.Instance.UpdateInGameMovesText(1);
+                    if (CardManager.Instance.CardsShowing[i].PileCardIsOn.PileType == e_PileTypes.SuitPile) UIManager.Instance.UpdateInGameScoreText(GameConfig.Instance.Gameplay.OnSuitPileCardAddedScoreAmount);
+
                     return;
                 }
             }
@@ -344,6 +351,9 @@ public class CardRefs : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                     {
                         BoardManager.Instance.SwitchPile(BoardManager.Instance.AllInteractablePiles[i], m_InteractedCards[a], e_CardFaceOptions.FaceShown, false);
                     }
+
+                    UIManager.Instance.UpdateInGameMovesText(1);
+                    if (CardManager.Instance.CardsShowing[i].PileCardIsOn.PileType == e_PileTypes.SuitPile) UIManager.Instance.UpdateInGameScoreText(GameConfig.Instance.Gameplay.OnSuitPileCardAddedScoreAmount);
 
                     return;
                 }
@@ -380,9 +390,11 @@ public class CardRefs : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
         m_InteractedCards.Clear();
 
+        m_InteractedCards.Add(this);
+
         for (int i = 0; i < m_PileCardIsOn.CardsOnPile.Count - m_PileCardIsOn.CardsOnPile.IndexOf(this); i++)
         {
-            m_InteractedCards.Add(m_PileCardIsOn.CardsOnPile[m_PileCardIsOn.CardsOnPile.Count - m_PileCardIsOn.CardsOnPile.IndexOf(this) + i]);
+            m_InteractedCards.Add(m_PileCardIsOn.CardsOnPile[m_PileCardIsOn.CardsOnPile.IndexOf(this) + i]);
         }
 
 
