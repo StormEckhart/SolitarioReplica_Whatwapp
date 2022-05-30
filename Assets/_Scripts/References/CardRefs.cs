@@ -278,7 +278,7 @@ public class CardRefs : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         //Set the sorting order higher than all other cards
         for (int i = 0; i < m_InteractedCards.Count; i++)
         {
-            m_InteractedCards[i].OverrideCanvas.sortingOrder = 200 * i;
+            m_InteractedCards[i].OverrideCanvas.sortingOrder = 200 * (i + 1);
         }
 
 
