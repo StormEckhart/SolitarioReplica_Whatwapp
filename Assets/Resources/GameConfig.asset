@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2891be1de86340478b43c719bb1c9d5, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
+  Gameplay:
+    DrawAmount: 1
   Cards:
     CardVisuals:
     - ValueSprite: {fileID: 21300000, guid: 4865cca08b1ccc943aea52426b97f68a, type: 3}
@@ -199,4 +201,9 @@ MonoBehaviour:
     - {fileID: 21300000, guid: 1d2f2101532c7e241a01143ad1332289, type: 3}
     RedSuitValueColor: {r: 1, g: 0.23921569, b: 0.2784314, a: 1}
     BlackSuitValueColor: {r: 0.105882354, g: 0.105882354, b: 0.105882354, a: 1}
-    FlipOverDuration: 0.5
+    FlipOverDuration: 0.1
+    MoveFromToDuration: 0.1
+  Board:
+    PauseDurationBetweenCardsDealt: 0.1
+    CardAmountsOnPilesOnDeckDealt: 01000000020000000300000004000000050000000600000007000000
+    CardsOnPileOffsetAmount: 0.1

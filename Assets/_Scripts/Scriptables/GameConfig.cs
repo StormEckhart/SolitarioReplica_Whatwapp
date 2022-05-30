@@ -110,12 +110,14 @@ public class CardVariables
     [Tooltip("The time it takes to flip over a card")]
     public float FlipOverDuration = 0.5f;
 
+    [Tooltip("The time it takes to move a card from a position to another")]
+    public float MoveFromToDuration = 0.5f;
+
 
 
     #region Inspector Methods
 
     [Button]
-    [SerializeField]
     private void SetupCardVisuals()
     {
         int l_ValueIndex = 0;
@@ -171,11 +173,32 @@ public class CardVariables
 [Serializable]
 public class BoardVariables
 {
+    [Tooltip("Pause duration between each card being dealt on game start")]
+    public float PauseDurationBetweenCardsDealt = 0.25f;
+
+    [Space]
+
+    [Tooltip("The amount of cards that will be dealt onto each main pile on deck dealt")]
+    public int[] CardAmountsOnPilesOnDeckDealt = new int[7];
+
+    [Space]
+ 
+    [Tooltip("The offset amount between each card on a same pile")]
+    public float CardsOnPileOffsetAmount = 0.5f;
 }
 
 [Serializable]
 public class GameplayVariables
 {
+    public enum e_DrawAmounts
+    {
+        Single = 1,
+        Three = 3
+    }
+
+
+    [Tooltip("The game variant type that is currently being played")]
+    public e_DrawAmounts DrawAmount = e_DrawAmounts.Single;
 }
 
 [Serializable]

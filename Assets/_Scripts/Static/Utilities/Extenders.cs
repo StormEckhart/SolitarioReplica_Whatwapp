@@ -68,6 +68,46 @@ public static class Extenders
 
     #endregion
 
+    #region Lists
+
+    //Shuffling the array using the Fisher-Yates algorithm
+    public static void Shuffle<T>(this List<T> i_List)
+    {
+        System.Random l_Random = new System.Random();
+
+        int l_N = i_List.Count;
+
+        while (l_N > 1)
+        {
+            int l_K = l_Random.Next(l_N--);
+            T temp = i_List[l_N];
+            i_List[l_N] = i_List[l_K];
+            i_List[l_K] = temp;
+        }
+    }
+
+    #endregion
+
+    #region Arrays
+
+    //Shuffling the array using the Fisher-Yates algorithm
+    public static void Shuffle<T>(this T[] i_Array)
+    {
+        System.Random l_Random = new System.Random();
+
+        int l_N = i_Array.Length;
+
+        while (l_N > 1)
+        {
+            int l_K = l_Random.Next(l_N--);
+            T temp = i_Array[l_N];
+            i_Array[l_N] = i_Array[l_K];
+            i_Array[l_K] = temp;
+        }
+    }
+
+    #endregion
+
     #region Vector3s
 
     public static bool IsGreaterOrEqual(this Vector3 local, Vector3 other)

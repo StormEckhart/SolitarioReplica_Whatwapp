@@ -9,10 +9,9 @@ public class UIManager : SingletonMonoBehaviourManager<UIManager>
     public enum e_UIScreens
     {
         None,
-        Welcome,
-        InGame,
+        Pause,
+        Options,
         Success,
-        Failure
     }
 
 
@@ -26,36 +25,50 @@ public class UIManager : SingletonMonoBehaviourManager<UIManager>
 
     [Header("References")]
 
-    [ReadOnly]
-    [Tooltip("A reference to the UI's welcome screen")]
-    [SerializeField]
-    private GameObject m_WelcomeScreen;
-
-    [ReadOnly]
     [Tooltip("A reference to the UI's success screen")]
     [SerializeField]
     private GameObject m_SuccessScreen;
 
-    [ReadOnly]
-    [Tooltip("A reference to the UI's failure screen")]
+    [Tooltip("A reference to the UI's pause screen")]
     [SerializeField]
-    private GameObject m_FailureScreen;
+    private GameObject m_PauseScreen;
+
+    [Tooltip("A reference to the UI's options screen")]
+    [SerializeField]
+    private GameObject m_OptionsScreen;
 
     [Space]
 
-    [ReadOnly]
-    [Tooltip("A reference to the UI's in game screen")]
+    [Tooltip("A reference to the UI's options draw amount text")]
     [SerializeField]
-    private GameObject m_InGameScreen;
+    private TextMeshProUGUI m_DrawAmountText;
+    [Tooltip("A reference to the UI's options timer activated state text")]
+    [SerializeField]
+    private TextMeshProUGUI m_TimerActivatedText;
+    [Tooltip("A reference to the UI's HUD timer area")]
+    [SerializeField]
+    private GameObject m_InGameTimerArea;
 
-    [ReadOnly]
-    [Tooltip("A reference to the UI's in game points text")]
+    [Space]
+
+    [Tooltip("A reference to the UI's HUD move amount text")]
     [SerializeField]
-    private TextMeshProUGUI m_InGamePointsText;
-    [ReadOnly]
-    [Tooltip("A reference to the UI's success screen total points text")]
+    private TextMeshProUGUI m_InGameMovesText;
+    [Tooltip("A reference to the UI's HUD timer text")]
     [SerializeField]
-    private TextMeshProUGUI m_SuccessPointsText;
+    private TextMeshProUGUI m_InGameTimerText;
+    [Tooltip("A reference to the UI's HUD current score text")]
+    [SerializeField]
+    private TextMeshProUGUI m_InGameScoreText;
+
+
+
+    [Tooltip("The time the current game is lasting")]
+    private float m_CurrentGameTime = 0f;
+
+    [Tooltip("If true, the timer is activated and counts how long the current game is lasting")]
+    private bool m_TimerIsActivated = false;
+
 
 
     #region Unity Events
@@ -63,62 +76,48 @@ public class UIManager : SingletonMonoBehaviourManager<UIManager>
     //Subscribing and unsubscribing the appropriate level related functions to the appropriate game manager events
     private void OnEnable()
     {
-        //GameManager.OnGameLaunchEvent += OnGameLaunch;
-
-        //GameManager.OnLevelStartEvent += OnLevelStart;
-        //GameManager.OnLevelSuccessEvent += OnLevelSuccess;
-        //GameManager.OnLevelFailureEvent += OnLevelFailed;
+        GameManager.OnLevelStartEvent += OnLevelStarted;
+        GameManager.OnLevelSuccessEvent += OnLevelSuccess;
+        GameManager.OnLevelPauseEvent += OnLevelPause;
     }
     private void OnDisable()
     {
-        //GameManager.OnGameLaunchEvent -= OnGameLaunch;
+        GameManager.OnLevelStartEvent -= OnLevelStarted;
+        GameManager.OnLevelSuccessEvent -= OnLevelSuccess;
+        GameManager.OnLevelPauseEvent -= OnLevelPause;
+    }
 
-        //GameManager.OnLevelStartEvent -= OnLevelStart;
-        //GameManager.OnLevelSuccessEvent -= OnLevelSuccess;
-        //GameManager.OnLevelFailureEvent -= OnLevelFailed;
+    private void Update()
+    {
+        if (m_CurrentDisplayedUIScreen != e_UIScreens.None || GameManager.Instance.CurrentGameplayState != e_GameplayStates.Playing) return;
+
+        //Keep track of current game time and update timer text component
+        m_CurrentGameTime += Time.deltaTime;
+        m_InGameTimerText.text = m_CurrentGameTime.ToString("00.00");
     }
 
     #region Custom Events
 
-    private void OnGameLaunch()
+    private void OnLevelStarted()
     {
-        ShowSpecificUIScreen(e_UIScreens.Welcome);
-    }
+        CloseCurrentUIScreen();
 
-    private void OnLevelStart()
-    {
-        ShowSpecificUIScreen(e_UIScreens.InGame);
+        m_CurrentGameTime = 0f;
+        m_InGameTimerText.text = m_CurrentGameTime.ToString("00.00");
+
+        m_InGameMovesText.text = 0.ToString();
+        m_InGameScoreText.text = 0.ToString();
     }
     private void OnLevelSuccess()
     {
         ShowSpecificUIScreen(e_UIScreens.Success);
     }
-    private void OnLevelFailed()
+    private void OnLevelPause()
     {
-        ShowSpecificUIScreen(e_UIScreens.Failure);
+        ShowSpecificUIScreen(e_UIScreens.Options);
     }
 
     #endregion
-
-    #endregion
-
-    #region Button Methods
-
-    //What happens when the user presses the button on welcome screen
-    public void OnWelcomeButtonPress()
-    {
-        GameManager.UpdateLevelState(e_LevelStates.Started);
-    }
-    //What happens when the user presses the button on success screen
-    public void OnSuccessButtonPress()
-    {
-        GameManager.UpdateLevelState(e_LevelStates.Started);
-    }
-    //What happens when the user presses the button on failure screen
-    public void OnFailureButtonPress()
-    {
-        GameManager.UpdateLevelState(e_LevelStates.Started);
-    }
 
     #endregion
 
@@ -126,45 +125,113 @@ public class UIManager : SingletonMonoBehaviourManager<UIManager>
     #region UI
 
     //Show the wanted UI screen whilst closing the others
-    private void ShowSpecificUIScreen(e_UIScreens i_WantedUIScreen)
+    public void ShowSpecificUIScreen(e_UIScreens i_WantedUIScreen)
     {
         if (m_CurrentDisplayedUIScreen == i_WantedUIScreen) return;
 
 
-        m_WelcomeScreen.SetActive(false);
+        m_PauseScreen.SetActive(false);
+        m_OptionsScreen.SetActive(false);
         m_SuccessScreen.SetActive(false);
-        m_FailureScreen.SetActive(false);
-        m_InGameScreen.SetActive(false);
 
         switch (i_WantedUIScreen)
         {
-            case e_UIScreens.Welcome:
-                m_WelcomeScreen.SetActive(true);
+            case e_UIScreens.Pause:
+                m_PauseScreen.SetActive(true);
                 break;
 
-            case e_UIScreens.InGame:
-                m_InGameScreen.SetActive(true);
+            case e_UIScreens.Options:
+                m_OptionsScreen.SetActive(true);
                 break;
 
             case e_UIScreens.Success:
-                m_SuccessPointsText.text = m_InGamePointsText.text + " Points";
-
                 m_SuccessScreen.SetActive(true);
-                break;
-
-            case e_UIScreens.Failure:
-                m_FailureScreen.SetActive(true);
                 break;
         }
 
         m_CurrentDisplayedUIScreen = i_WantedUIScreen;
     }
-
-    //Update the shown points in the points text component
-    public void UpdateInGamePointsText(int i_UpdatedValue)
+    public void CloseCurrentUIScreen()
     {
-        m_InGamePointsText.text = i_UpdatedValue.ToString();
+        switch (m_CurrentDisplayedUIScreen)
+        {
+            case e_UIScreens.Pause:
+                m_PauseScreen.SetActive(false);
+                break;
+
+            case e_UIScreens.Options:
+                m_OptionsScreen.SetActive(false);
+                break;
+
+            case e_UIScreens.Success:
+                m_SuccessScreen.SetActive(false);
+                break;
+        }
+
+        m_CurrentDisplayedUIScreen = e_UIScreens.None;
     }
+
+
+    #region InGame Methods
+
+    //Update the move amount in the moves text component
+    public void UpdateInGameMovesText(int i_ValueToAdd)
+    {
+        m_InGameMovesText.text += i_ValueToAdd.ToString();
+    }
+    //Update the current score in the score text component
+    public void UpdateInGameScoreText(int i_ValueToAdd)
+    {
+        m_InGameScoreText.text += i_ValueToAdd.ToString();
+    }
+
+    #endregion
+
+    #region Screen Methods
+
+    public void OpenOptionsScreen()
+    {
+        ShowSpecificUIScreen(e_UIScreens.Options);
+    }
+    public void OpenPauseScreen()
+    {
+        ShowSpecificUIScreen(e_UIScreens.Pause);
+    }
+
+
+    public void RestartGame()
+    {
+        GameManager.UpdateLevelState(e_LevelStates.Started, true);
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+
+    public void SwitchDrawAmount()
+    {
+        if (GameConfig.Instance.Gameplay.DrawAmount == GameplayVariables.e_DrawAmounts.Single)
+        {
+            GameConfig.Instance.Gameplay.DrawAmount = GameplayVariables.e_DrawAmounts.Three;
+        }
+        else
+        {
+            GameConfig.Instance.Gameplay.DrawAmount = GameplayVariables.e_DrawAmounts.Single;
+        }
+
+        m_DrawAmountText.text = GameConfig.Instance.Gameplay.DrawAmount.ToString();
+    }
+    public void SwitchTimerEnabled()
+    {
+        m_TimerIsActivated = !m_TimerIsActivated;
+
+        m_TimerActivatedText.text = m_TimerIsActivated.ToString();
+
+        m_InGameTimerArea.SetActive(m_TimerIsActivated);
+    }
+
+    #endregion
 
     #endregion
 }

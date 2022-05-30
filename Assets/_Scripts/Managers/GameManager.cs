@@ -22,6 +22,7 @@ public enum e_GameplayStates
 {
     Inactive,
     DealingDeck,
+    Playing
 }
 
 public class GameManager : SingletonMonoBehaviourManager<GameManager>
@@ -48,6 +49,8 @@ public class GameManager : SingletonMonoBehaviourManager<GameManager>
 
     //An event called when dealing the deck to the player, for all necessary functions to subscribe to
     public static event Action OnGameplayDealingDeckEvent;
+    //An event called when dealing the deck to the player, for all necessary functions to subscribe to
+    public static event Action OnGameplayPlayingEvent;
 
     #endregion
 
@@ -83,9 +86,10 @@ public class GameManager : SingletonMonoBehaviourManager<GameManager>
 
 
     //Update the current game state and call the appropriate delegate for it
-    public static void UpdateGameState(e_GameStates i_WantedGameState)
+    [Button]
+    public static void UpdateGameState(e_GameStates i_WantedGameState, bool i_ForceUpdate = false)
     {
-        if (GameManager.Instance.m_CurrentGameState == i_WantedGameState) return;
+        if (GameManager.Instance.m_CurrentGameState == i_WantedGameState && i_ForceUpdate == false) return;
 
         GameManager.Instance.m_CurrentGameState = i_WantedGameState;
 
@@ -109,12 +113,14 @@ public class GameManager : SingletonMonoBehaviourManager<GameManager>
     }
 
     //Update the current level state and call the appropriate delegate for it
-    public static void UpdateLevelState(e_LevelStates i_WantedLevelState)
+    [Button]
+    public static void UpdateLevelState(e_LevelStates i_WantedLevelState, bool i_ForceUpdate = false)
     {
-        if (GameManager.Instance.m_CurrentLevelState == i_WantedLevelState) return;
+        if (GameManager.Instance.m_CurrentLevelState == i_WantedLevelState && i_ForceUpdate == false) return;
 
         GameManager.Instance.m_CurrentLevelState = i_WantedLevelState;
 
+        if (GameManager.Instance.CurrentGameState != e_GameStates.InGame) GameManager.UpdateGameState(e_GameStates.InGame, true);
 
         Action delegateToCall = null;
     
@@ -140,9 +146,10 @@ public class GameManager : SingletonMonoBehaviourManager<GameManager>
     }
 
     //Update the current gameplay state and call the appropriate delegate for it
-    public static void UpdateGameplayState(e_GameplayStates i_WantedGameplayState)
+    [Button]
+    public static void UpdateGameplayState(e_GameplayStates i_WantedGameplayState, bool i_ForceUpdate = false)
     {
-        if (GameManager.Instance.m_CurrentGameplayState == i_WantedGameplayState) return;
+        if (GameManager.Instance.m_CurrentGameplayState == i_WantedGameplayState && i_ForceUpdate == false) return;
 
         GameManager.Instance.m_CurrentGameplayState = i_WantedGameplayState;
 
@@ -153,6 +160,10 @@ public class GameManager : SingletonMonoBehaviourManager<GameManager>
         {
             case e_GameplayStates.DealingDeck:
                 delegateToCall = OnGameplayDealingDeckEvent;
+                break;
+
+            case e_GameplayStates.Playing:
+                delegateToCall = OnGameplayPlayingEvent;
                 break;
         }
 

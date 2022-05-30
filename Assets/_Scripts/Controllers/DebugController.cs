@@ -39,7 +39,7 @@ public class DebugController : MonoBehaviour
 
     private void OnLevelReset(InputAction.CallbackContext i_Context)
     {
-        GameManager.UpdateLevelState(e_LevelStates.Started);
+        GameManager.UpdateLevelState(e_LevelStates.Started, true);
     }
 
     #endregion

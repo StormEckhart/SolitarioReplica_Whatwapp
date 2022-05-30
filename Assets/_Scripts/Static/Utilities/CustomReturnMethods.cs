@@ -29,4 +29,20 @@ public class CustomReturnMethods
             return Mathf.Abs(i_A);
         }
     }
+
+
+    //Return true if these two RectTransforms are colliding with one another
+    public static bool AreRectTransformsColliding(RectTransform i_RectTransformA, RectTransform i_RectTransformB)
+    {
+        Vector2 l_MinA = i_RectTransformA.TransformPoint(i_RectTransformA.rect.min);
+        Vector2 l_MaxA = i_RectTransformA.TransformPoint(i_RectTransformA.rect.max);
+
+        Vector2 l_MinB = i_RectTransformB.TransformPoint(i_RectTransformA.rect.min);
+        Vector2 l_MaxB = i_RectTransformB.TransformPoint(i_RectTransformA.rect.max);
+
+        return l_MaxA.x > l_MinB.x &&
+               l_MaxA.y > l_MinB.y &&
+               l_MinA.x < l_MaxB.x &&
+               l_MinA.y < l_MaxB.y;
+    }
 }
