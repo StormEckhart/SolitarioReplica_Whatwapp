@@ -48,6 +48,9 @@ public class UIManager : SingletonMonoBehaviourManager<UIManager>
     [Tooltip("A reference to the UI's HUD timer area")]
     [SerializeField]
     private GameObject m_InGameTimerArea;
+    [Tooltip("A reference to the UI's options warning text")]
+    [SerializeField]
+    private GameObject m_OptionsWarningText;
 
     [Space]
 
@@ -63,11 +66,18 @@ public class UIManager : SingletonMonoBehaviourManager<UIManager>
 
 
 
+    [Tooltip("The amount of moves the player currently has done")]
+    private int m_CurrentGameMoves = 0;
     [Tooltip("The time the current game is lasting")]
     private float m_CurrentGameTime = 0f;
+    [Tooltip("The current score the player has")]
+    private int m_CurrentGameScore = 0;
 
     [Tooltip("If true, the timer is activated and counts how long the current game is lasting")]
     private bool m_TimerIsActivated = false;
+
+    [Tooltip("If true, once the options screen closed, the game will restart")]
+    private bool m_OptionsHaveBeenModified = false;
 
 
 
@@ -89,7 +99,7 @@ public class UIManager : SingletonMonoBehaviourManager<UIManager>
 
     private void Update()
     {
-        if (m_CurrentDisplayedUIScreen != e_UIScreens.None || GameManager.Instance.CurrentGameplayState != e_GameplayStates.Playing) return;
+        if (m_CurrentDisplayedUIScreen != e_UIScreens.None || GameManager.Instance.CurrentGameplayState != e_GameplayStates.Playing || m_InGameTimerArea.activeSelf == false) return;
 
         //Keep track of current game time and update timer text component
         m_CurrentGameTime += Time.deltaTime;
@@ -102,11 +112,25 @@ public class UIManager : SingletonMonoBehaviourManager<UIManager>
     {
         CloseCurrentUIScreen();
 
+
+        //Reset game variables
         m_CurrentGameTime = 0f;
         m_InGameTimerText.text = m_CurrentGameTime.ToString("00.00");
 
-        m_InGameMovesText.text = 0.ToString();
-        m_InGameScoreText.text = 0.ToString();
+        m_CurrentGameMoves = 0;
+        m_InGameMovesText.text = m_CurrentGameMoves.ToString();
+
+        m_CurrentGameScore = 0;
+        m_InGameScoreText.text = m_CurrentGameScore.ToString();
+
+
+        //Show correct draw amount in options
+        m_DrawAmountText.text = GameConfig.Instance.Gameplay.DrawAmount.ToString();
+
+
+        //Reset options elements
+        m_OptionsHaveBeenModified = false;
+        m_OptionsWarningText.SetActive(false);
     }
     private void OnLevelSuccess()
     {
@@ -153,6 +177,8 @@ public class UIManager : SingletonMonoBehaviourManager<UIManager>
     }
     public void CloseCurrentUIScreen()
     {
+        if (m_CurrentDisplayedUIScreen == e_UIScreens.None) return;
+
         switch (m_CurrentDisplayedUIScreen)
         {
             case e_UIScreens.Pause:
@@ -169,6 +195,12 @@ public class UIManager : SingletonMonoBehaviourManager<UIManager>
         }
 
         m_CurrentDisplayedUIScreen = e_UIScreens.None;
+
+
+        if (m_OptionsHaveBeenModified == true)
+        {
+            RestartGame();
+        }
     }
 
 
@@ -177,12 +209,16 @@ public class UIManager : SingletonMonoBehaviourManager<UIManager>
     //Update the move amount in the moves text component
     public void UpdateInGameMovesText(int i_ValueToAdd)
     {
-        m_InGameMovesText.text += i_ValueToAdd.ToString();
+        m_CurrentGameMoves += i_ValueToAdd;
+
+        m_InGameMovesText.text = m_CurrentGameMoves.ToString();
     }
     //Update the current score in the score text component
     public void UpdateInGameScoreText(int i_ValueToAdd)
     {
-        m_InGameScoreText.text += i_ValueToAdd.ToString();
+        m_CurrentGameScore += i_ValueToAdd;
+
+        m_InGameScoreText.text = m_CurrentGameScore.ToString();
     }
 
     #endregion
@@ -221,6 +257,10 @@ public class UIManager : SingletonMonoBehaviourManager<UIManager>
         }
 
         m_DrawAmountText.text = GameConfig.Instance.Gameplay.DrawAmount.ToString();
+
+
+        m_OptionsHaveBeenModified = !m_OptionsHaveBeenModified;
+        m_OptionsWarningText.SetActive(m_OptionsHaveBeenModified);
     }
     public void SwitchTimerEnabled()
     {
@@ -229,6 +269,10 @@ public class UIManager : SingletonMonoBehaviourManager<UIManager>
         m_TimerActivatedText.text = m_TimerIsActivated.ToString();
 
         m_InGameTimerArea.SetActive(m_TimerIsActivated);
+
+
+        m_OptionsHaveBeenModified = !m_OptionsHaveBeenModified;
+        m_OptionsWarningText.SetActive(m_OptionsHaveBeenModified);
     }
 
     #endregion

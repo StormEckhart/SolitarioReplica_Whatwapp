@@ -88,7 +88,9 @@ public class BoardManager : SingletonMonoBehaviourManager<BoardManager>
 
     [Tooltip("The index of how many flipped cards are currently on the front of said pile")]
     [HideInInspector]
-    public int FlippedVisibleCardAmount = 0;
+    [SerializeField]
+    private int m_FlippedVisibleCardAmount = 0;
+    public int FlippedVisibleCardAmount => m_FlippedVisibleCardAmount;
 
 
     [Tooltip("A reference to all piles")]
@@ -165,6 +167,19 @@ public class BoardManager : SingletonMonoBehaviourManager<BoardManager>
             if (AllInteractablePiles.Contains(l_PileCardWasOn) == true)
             {
                 if (l_PileCardWasOn.CardsOnPile.Count > 0) l_PileCardWasOn.CardsOnPile[l_PileCardWasOn.CardsOnPile.Count - 1].SwitchCardFaceShowing(e_CardFaceOptions.FaceShown, i_SwitchInstantly);
+            }
+            else
+            {
+                if (i_PileToSwitchTo.ParentPile == m_FlippedPile.ParentPile)
+                {
+                    if (m_FlippedVisibleCardAmount == 3) m_FlippedVisibleCardAmount = 0;
+                    m_FlippedVisibleCardAmount++;
+                }
+                else if (l_PileCardWasOn.ParentPile == m_FlippedPile.ParentPile)
+                {
+                    if (FlippedPile.CardsOnPile.Count > 0)
+                        FlippedPile.CardsOnPile[m_FlippedPile.CardsOnPile.Count - 1].SetInteractableState(true);
+                }
             }
         }
 

@@ -207,7 +207,9 @@ public class CardManager : SingletonMonoBehaviourManager<CardManager>
     //Flip over the necessary amount of cards from the deck pile into the flipped pile
     public void FlipOverCards()
     {
-        for (int i = 0; i < (int)GameConfig.Instance.Gameplay.DrawAmount; i++)
+        int l_LoopAmount = BoardManager.Instance.DeckPile.CardsOnPile.Count >= (int)GameConfig.Instance.Gameplay.DrawAmount ? (int)GameConfig.Instance.Gameplay.DrawAmount : BoardManager.Instance.DeckPile.CardsOnPile.Count;
+
+        for (int i = 0; i < l_LoopAmount; i++)
         {
             BoardManager.Instance.SwitchPile(BoardManager.Instance.FlippedPile, BoardManager.Instance.DeckPile.CardsOnPile[BoardManager.Instance.DeckPile.CardsOnPile.Count - 1], e_CardFaceOptions.FaceShown, false);
         }

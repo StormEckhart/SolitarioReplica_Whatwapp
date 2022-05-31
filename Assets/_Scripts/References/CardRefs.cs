@@ -103,6 +103,10 @@ public class CardRefs : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     //A shortcut for the card variables
     private CardVariables m_CardVars => GameConfig.Instance.Cards;
 
+    //Tweens taking care of flipping over this card or moving this card to a specific pile
+    private Sequence m_FlippingCardSequence;
+    private Tween m_MovingCardTween;
+
 
 
     #region Setters
@@ -121,6 +125,13 @@ public class CardRefs : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void SetPileCardIsOn(BoardManager.Pile i_PileCardIsNowOn)
     {
         m_PileCardIsOn = i_PileCardIsNowOn;
+    }
+
+
+    //Set if this card is interactable or not
+    public void SetInteractableState(bool i_CanBeInteractedWith)
+    {
+        m_CardIsInteractable = i_CanBeInteractedWith;
     }
 
     #endregion
@@ -172,11 +183,13 @@ public class CardRefs : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
         m_CardIsInteractable = false;
 
+        m_FlippingCardSequence?.Kill();
+        
         if (i_SwitchInstantly == false)
         {
-            Sequence l_SwitchCardFaceSequence = DOTween.Sequence();
+            m_FlippingCardSequence = DOTween.Sequence();
 
-            l_SwitchCardFaceSequence.Append(m_Render.DOScaleX(0f, m_CardVars.FlipOverDuration / 2f))
+            m_FlippingCardSequence.Append(m_Render.DOScaleX(0f, m_CardVars.FlipOverDuration / 2f))
                                     .AppendCallback(() =>
                                     {
                                         m_FrontFace.gameObject.SetActive(l_SetFrontSideUp == true ? true : false);
@@ -188,6 +201,15 @@ public class CardRefs : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                                         m_CardIsShown = m_CardIsInteractable = l_SetFrontSideUp;
 
                                         CardManager.Instance.UpdateCardsShowing(this);
+
+
+                                        if (PileCardIsOn.ParentPile == BoardManager.Instance.FlippedPile.ParentPile)
+                                        {
+                                            if (BoardManager.Instance.FlippedPile.CardsOnPile.Count > 1)
+                                            {
+                                                BoardManager.Instance.FlippedPile.CardsOnPile[BoardManager.Instance.FlippedPile.CardsOnPile.IndexOf(this) - 1].SetInteractableState(false);
+                                            }
+                                        }
                                     });
         }
         else
@@ -198,6 +220,15 @@ public class CardRefs : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             m_CardIsShown = m_CardIsInteractable = l_SetFrontSideUp;
 
             CardManager.Instance.UpdateCardsShowing(this);
+
+
+            if (PileCardIsOn.ParentPile == BoardManager.Instance.FlippedPile.ParentPile)
+            {
+                if (BoardManager.Instance.FlippedPile.CardsOnPile.Count > 1)
+                {
+                    BoardManager.Instance.FlippedPile.CardsOnPile[BoardManager.Instance.FlippedPile.CardsOnPile.IndexOf(this) - 1].SetInteractableState(false);
+                }
+            }
         }
     }
 
@@ -214,36 +245,32 @@ public class CardRefs : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             l_CardOffset = Vector2.left;
 
-            l_PositionToGoTo += l_CardOffset * GameConfig.Instance.Board.CardsOnPileOffsetAmount * BoardManager.Instance.FlippedVisibleCardAmount;
-
-
-            if (BoardManager.Instance.FlippedVisibleCardAmount == 2)
-                BoardManager.Instance.FlippedVisibleCardAmount = 0;
-            else
-                BoardManager.Instance.FlippedVisibleCardAmount++;
+            l_PositionToGoTo += l_CardOffset * GameConfig.Instance.Board.CardsOnPileOffsetAmount * (BoardManager.Instance.FlippedVisibleCardAmount - 1);
         }
         else
         {
-            if (i_PileToSetParentAsAndMoveTo.ParentPile != BoardManager.Instance.DeckPile.ParentPile)
+            if (i_PileToSetParentAsAndMoveTo.ParentPile != BoardManager.Instance.DeckPile.ParentPile && i_PileToSetParentAsAndMoveTo.PileType != e_PileTypes.SuitPile)
             {
                 l_CardOffset = Vector2.down;
             }
 
-            l_PositionToGoTo += l_CardOffset * GameConfig.Instance.Board.CardsOnPileOffsetAmount * (i_PileToSetParentAsAndMoveTo.CardsOnPile.Count - 1);
+            l_PositionToGoTo += l_CardOffset * GameConfig.Instance.Board.CardsOnPileOffsetAmount * (i_PileToSetParentAsAndMoveTo.CardsOnPile.IndexOf(this));
         }
 
 
         if ((Vector2)transform.position == l_PositionToGoTo) return;
 
 
-        m_OverrideCanvas.sortingOrder = 100 + i_PileToSetParentAsAndMoveTo.CardsOnPile.Count;
+        m_OverrideCanvas.sortingOrder = 101 + i_PileToSetParentAsAndMoveTo.CardsOnPile.IndexOf(this);
+
 
         m_CardIsInteractable = false;
 
+        m_MovingCardTween?.Kill();
 
         if (i_MoveInstantly == false)
         {
-            Tween l_CardMovingTween = transform.DOMove(l_PositionToGoTo, m_CardVars.MoveFromToDuration)
+            m_MovingCardTween = transform.DOMove(l_PositionToGoTo, m_CardVars.MoveFromToDuration)
                                    .OnComplete(() =>
                                    {
                                        if (m_CardIsShown == true) m_CardIsInteractable = true;
@@ -319,8 +346,6 @@ public class CardRefs : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
             if (CustomReturnMethods.AreRectTransformsColliding(m_RectTransform, s_RectTranform2) == true)
             {
-                Debug.LogError("Collision detected!");
-
                 if (BoardManager.Instance.CanCardBePutIntoThisPile(CardManager.Instance.CardsShowing[i].PileCardIsOn, this) == true)
                 {
                     for (int a = 0; a < m_InteractedCards.Count; a++)
@@ -343,8 +368,6 @@ public class CardRefs : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
             if (CustomReturnMethods.AreRectTransformsColliding(m_RectTransform, s_RectTranform2) == true)
             {
-                Debug.LogError("Collision detected!");
-
                 if (BoardManager.Instance.CanCardBePutIntoThisPile(BoardManager.Instance.AllInteractablePiles[i], this) == true)
                 {
                     for (int a = 0; a < m_InteractedCards.Count; a++)
@@ -361,11 +384,9 @@ public class CardRefs : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
 
 
-        Debug.LogError("No collision");
-
         for (int a = 0; a < m_InteractedCards.Count; a++)
         {
-            BoardManager.Instance.SwitchPile(m_PileCardIsOn, m_InteractedCards[a], e_CardFaceOptions.FaceShown, false);
+            BoardManager.Instance.SwitchPile(m_InteractedCards[a].PileCardIsOn, m_InteractedCards[a], e_CardFaceOptions.LeaveUntouched, false);
         }
     }
 
